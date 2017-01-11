@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--Updated By Roniya-->
+        <template id="shark_invoice_report.new_header_layout">
+            <t t-call="shark_invoice_report.header_layout"/>
+            <t t-raw="0"/>
+        </template>
+        <template id="header_layout">
+            <div class="header" style="height:4cm">
+            </div>
+        </template>
+        <template id="account.report_invoice_document">
+            <t t-call="shark_invoice_report.new_header_layout">
+                <div class="page">
+
+                    <div class="clear"/>
+                    <div class="space"/>
+                    <div>
+                        <div style="height:3cm;width:9cm;float:left;padding:2px;text-align:center;"
+                             align="left">
+                            <p>
+                                <span t-field="o.partner_id"/>
+                                <span t-field="o.partner_id.phone"/>
+                            </p>
+                        </div>
+                        <div style="height:3cm;width:6.5cm;float:right;" align="right">
+                            <table class='table_class' style="border-style:hidden;">
+                                <tr>
+                                    <td style="width:2cm;">Invoice No</td>
+                                    <td style="width:0.5cm;">:</td>
+                                    <td style="width:4cm;">
+                                        <span t-field="o.origin"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:2cm;">Date</td>
+                                    <td style="width:0.5cm;">:</td>
+                                    <td style="width:4cm;">
+                                        <span t-field="o.date_invoice"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:5cm;">Terms Of Payment</td>
+                                    <td style="width:0.5cm;">:</td>
+                                    <td style="width:1cm;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:2cm;">P OrderNumber</td>
+                                    <td style="width:0.5cm;">:</td>
+                                    <td style="width:4cm;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:2cm;">Desp Through</td>
+                                    <td style="width:0.5cm;">:</td>
+                                    <td style="width:4cm;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:3.5cm;">Terms Of Delivery</td>
+                                    <td style="width:0.5cm;">:</td>
+                                    <td style="width:3cm;">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clear"/>
+                    <div class="space"/>
+                    <t t-set="i" t-value="1"/>
+                    <div style="height:14cm;">
+                        <table class="table_style">
+                            <thead>
+                                <tr style="height:8mm">
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.invoice_line" t-as="l" style="height:1cm;">
+                                    <td style="width:2cm;text-align:center">
+                                        <span t-esc="i"/>
+                                    </td>
+                                    <t t-set="i" t-value="i+1"/>
+                                    <td style="width:14cm">
+                                        <span t-field="l.name"/>
+                                    </td>
+                                    <td style="width:2.5cm;text-align:right">
+                                        <span t-field="l.quantity"/>
+                                        <span t-field="l.uos_id" groups="product.group_uom"/>
+                                    </td>
+                                    <td style="width:2.5cm;text-align:right">
+                                        <span t-field="l.price_unit"/>/
+                                        <span t-field="l.uos_id" groups="product.group_uom"/>
+                                    </td>
+
+                                    <td style="width:4cm;text-align:right">
+                                        <span t-field="l.price_subtotal"
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table_col">
+                            <tr style="height:1cm">
+                                <td style="width:2cm"></td>
+                                <td style="width:14cm;text-align:center">Total</td>
+                                <td style="width:2.5cm;text-align:right">
+                                    <span t-esc="o.total_quantity"/>
+                                </td>
+                                <td style="width:2.5cm;text-align:right"></td>
+                                <td style="width:4cm;text-align:right;">
+                                    <span t-field="o.amount_untaxed"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table_col">
+                            <tr style="height:8mm">
+                                <td style="width:2cm"></td>
+                                <td colspan="5">
+                                    <b>UAE Dirhams
+                                        <span t-esc="o._amount_to_text(o.amount_untaxed)"/>
+                                        Only
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="height:5cm">
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="account.report_invoice">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'account.report_invoice_document')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

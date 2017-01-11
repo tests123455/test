@@ -1,0 +1,114 @@
+<openerp>
+    <data>
+        <!--Updated By Roniya-->
+        <template id="report_test_style" inherit_id="report.style">
+            <xpath expr=".">
+                <t>
+                    .header {display:block;padding:0px;height:80px;width:100%;}
+                    .footer {display:block;padding:0px;height:100px;width:100%;border-top:1px solid
+                    #666;font-size:12px;padding-top:8px;}
+                    .footer_left{float:left; height:auto;display:block;width:30%;line-height:30%;}
+                    .footer_right{float:right; height:auto;display:block;width:68%;text-align:right;line-height:30%;}
+                    .left{width:250px;padding:0px;display:block;float:left;height:80px;}
+                    .left_no_width{width:auto;padding:0px;display:block;float:left;height:auto;}
+                    .text_left{text-align:left;display:block;margin-left:10px;margin-top:10px;font-size:11px;}
+                    .width_left{float:left;height:auto;width:260px;font-size:13px;text-align:left;}
+                    .width_right{float:right;height:auto;width:180px;font-size:13px;text-align:left;}
+                    .right2{font-family: Arial;float:right:width:100px;padding:5px 0px 0px
+                    0px;display:block;height:75px;color:#AB1B1D;font-size:25px;text-align:right;}
+                    .right{width:45%;float:right;line-height:5px;margin-top:10px}
+                    .clear{clear:both;}
+                    .hundred_width{width:700px;}
+                    #title{width:100%;display:block;padding:0px;text-align:center;font-weight:bold;font-size:20px;color:#AB1B1D;margin-top:10px;}
+                    .report_title{width:100%;display:block;margin-top:20px;text-align:center;font-size:26px;
+                    padding:5px 0px 5px 0px;border:1px solid #CCC; border-left:none;border-right:none;font-weight:bold;}
+                    table{width:100%;margin:0px;border-collapse: collapse;}
+                    .tfirst{width:167px;}
+                    .tthird{width:167px;}
+                    h4{display:block;padding:0px;text-align:center;}
+                    table th{text-align:left}
+                    .space{height:10px;display:block;}
+                    .main_content{width:100%;height:auto; margin-bottom:10px;}
+                    .main_content .con_left {float:left;width:50%;height:auto;}
+                    .main_content .con_left p {line-height:4px;}
+                    .main_content .con_right {float:right;width:50%;height:auto;}
+                    .internal_title{display:block;padding:2px 3px 2px
+                    3px;background:#BFBFBF;width:99%;text-transform:uppercase;font-weight:bold;}
+                    .test_body{width:100%;height:auto;display:block;border-top:1px solid #666;}
+                    .test_body table{margin-top:40px;}
+                    .test_body1{width:100%;height:auto;display:block;border-top:1px solid #666;}
+                    .test_body1 table{margin-top:40px;}
+                    .td_bdr_right{border-right:1px solid #666;}
+                    .test_body table tr td,th{border:1px solid #D1D1D1;width:50px;}
+                    .test_body1 table td,th{border:1px solid #D1D1D1;width:30px;}
+                    .footer_body table tr td,th{border:1px solid #D1D1D1;width:30px;}
+                    .terms {width:100%;display:block;font-size:9px;color:#666;text-align:left;}
+                    .small_font th{font-size:8px;text-align:left}
+                    .small_font td{font-size:8px;text-align:left}
+                    .medium_font th{font-size:13px;text-align:lef}
+                    .medium_font td{font-size:13px;text-align:left}
+                    .og_table th{border:1px solid #D1D1D1;text-align:center;font-size:10px;padding:2px}
+                    .og_table td{border:1px solid #D1D1D1;width:30px;text-align:center;font-size:10px;padding:2px}
+                    .td_bg{background-color:#E5E5E5;font-weight:bold;}
+                    .inv_header{width:100%;height:130px;border-bottom:3px solid #AB1B1D}
+                    .inv_big{font-size:70px;text-align:right}
+                    .padding_top{padding-top:7px;}
+                    .inv_user{text-align:left;
+                    width:200px;display:block;padding-top:8px;font-weight:bold;line-height:9px;}
+                    .td_wd{width:10px; padding:0px; margin:0px;}
+                    .cap{text-transform:capitalize;padding:2px;}
+                    table_style, th, td {
+                     border:none;
+                    padding:4px;
+
+                    }
+                    table_style, table{
+                    border:none;
+
+                    }
+
+
+                    tablex {
+                    border-collapse: collapse;
+                    }
+                    tablex, th, td {
+                    border:none;
+                    }
+                    .border-black div {
+                    border:none;
+                    }
+                    .table_class td{
+                    border:none;
+                    padding:1px;
+
+                    padding-left:2px;
+                    }
+                    table_col table{
+                    border-top:none;
+
+                    border-bottom:none;
+                    }
+
+
+                </t>
+            </xpath>
+        </template>
+        <record id="paperformat_invoice_report" model="report.paperformat">
+            <field name="name">Custom format</field>
+            <field name="default" eval="False"/>
+            <field name="format">custom</field>
+            <field name="page_height">210</field>
+            <field name="page_width">297</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_right">4</field>
+            <field name="margin_left">4</field>
+            <field name="dpi">360</field>
+        </record>
+        <record id="account.account_invoices" model="ir.actions.report.xml">
+            <field name="download_filename">${o.partner_id.name or ''}.pdf</field>
+            <field name="paperformat_id" ref="paperformat_invoice_report"/>
+        </record>
+
+
+    </data>
+</openerp>

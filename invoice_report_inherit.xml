@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--Updated By Roniya-->
+        <report
+                id="account.account_invoices"
+                model="account.invoice"
+                string="Print Invoices"
+                report_type="qweb-pdf"
+                name="account.report_invoice"
+                file="account.report_invoice"
+                attachment_use="True"
+                attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+        />
+
+        <record id="invoice_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="quantity" position="replace">
+                    <field name="quantity" sum="_get_total_quantity"/>
+                </field>
+                <field name="payment_term" class="oe_inline"
+                       on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)" position="after">
+                    <field name="total_quantity" invisible="1"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_order_gggform" model="ir.ui.view">
+            <field name="name">delivery.sale.order.form.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="note" class="oe_inline" placeholder="Terms and conditions..." position="before">
+                    <group>
+                        <field name="tot_qty"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
